@@ -1,0 +1,137 @@
+
+import {StyleSheet } from 'react-native';
+import { moderateScale } from '../../utils/scalingUtils';
+
+export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: moderateScale(10),
+    backgroundColor: '#f5f7fa',
+    fontFamily: 'ComicRelief-Regular',
+  },
+  topButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: moderateScale(10),
+    fontFamily: 'ComicRelief-Regular',
+  },
+  button: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#d9534f',
+    padding: moderateScale(10),
+    borderRadius: moderateScale(5),
+    fontFamily: 'ComicRelief-Regular',
+  },
+  text: {
+    color: '#fff',
+    marginLeft: moderateScale(5),
+    fontWeight: 'bold',
+    fontFamily: 'ComicRelief-Regular',
+  },
+  searchInput: {
+  color: '#000000',
+  backgroundColor: '#ffffff',
+  padding: moderateScale(10),
+  borderRadius: moderateScale(5),
+  marginBottom: moderateScale(10),
+  fontFamily: 'ComicRelief-Regular',
+  fontSize: moderateScale(14),
+  borderColor: '#ccc',
+  borderWidth: 1,
+},
+
+sortPicker: {
+  backgroundColor: '#ffffff',
+  borderRadius: moderateScale(5),
+  marginBottom: moderateScale(10),
+  fontFamily: 'ComicRelief-Regular',
+  borderColor: '#ccc',
+  borderWidth: 1,
+  color: '#000000',
+},
+fab: {
+    position: 'absolute',
+    right: moderateScale(16),
+    bottom: moderateScale(16),
+    width: moderateScale(56),
+    height: moderateScale(56),
+    borderRadius: moderateScale(28),
+    backgroundColor: '#d9534f',
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+  },
+
+});
+
+export const darkButtonStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: moderateScale(10),
+    backgroundColor: '#2c3e50',
+    fontFamily: 'ComicRelief-Regular',
+  },
+  topButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: moderateScale(10),
+    fontFamily: 'ComicRelief-Regular',
+  },
+  button: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#c0392b',
+    padding: moderateScale(10),
+    borderRadius: moderateScale(5),
+    fontFamily: 'ComicRelief-Regular',
+  },
+  text: {
+    color: '#fff',
+    marginLeft: moderateScale(5),
+    fontWeight: 'bold',
+    fontFamily: 'ComicRelief-Regular',
+  },
+  searchInput: {
+  backgroundColor: '#34495e',
+  padding: moderateScale(10),
+  borderRadius: moderateScale(5),
+  marginBottom: moderateScale(10),
+  fontFamily: 'ComicRelief-Regular',
+  fontSize: moderateScale(14),
+  color: '#ecf0f1',
+  borderColor: '#7f8c8d',
+  borderWidth: 1,
+},
+
+sortPicker: {
+  backgroundColor: '#34495e',
+  borderRadius: moderateScale(5),
+  marginBottom: moderateScale(10),
+  fontFamily: 'ComicRelief-Regular',
+  color: '#ecf0f1',
+  borderColor: '#7f8c8d',
+  borderWidth: 1,
+},
+fab: {
+    position: 'absolute',
+    right: moderateScale(16),
+    bottom: moderateScale(16),
+    width: moderateScale(56),
+    height: moderateScale(56),
+    borderRadius: moderateScale(28),
+    backgroundColor: '#c0392b',
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+  },
+
+});
