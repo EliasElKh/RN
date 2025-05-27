@@ -10,7 +10,7 @@ import VerifyOtpScreen from '../screens/VerifyOtpScreenSignUp/VerifyOtpScreen';
 import { EditProfileScreen } from '../screens/EditProfileScreen/EditProfileScreen';
 import { AddProductScreen } from '../screens/AddProductScreen/AddProductScreen';
 import { EditProductScreen } from '../screens/EditProductScreen/EditProductScreen';
-
+import { CartScreen } from '../screens/CartScreen/CartScreen';
 
 export type RootStackParamList = {
   Login: undefined;
@@ -22,6 +22,7 @@ export type RootStackParamList = {
   EditProfile: undefined;
   AddProduct: undefined;
   EditProductScreen: { product: any };
+  Cart: undefined;
 };
 
 const StackNav = createNativeStackNavigator<RootStackParamList>();
@@ -40,6 +41,7 @@ export const Stack = () => {
         <StackNav.Screen name="EditProfile" component={EditProfileScreen} />
         <StackNav.Screen name="AddProduct" component={AddProductScreen}/>
         <StackNav.Screen name="EditProductScreen" component={EditProductScreen} />
+        <StackNav.Screen name="Cart" component={CartScreen} />
         </>
       ) : (
         <>

@@ -13,4 +13,6 @@ export const styles = StyleSheet.create({
     fontSize: scaleFont(16),
     color: '#444',
   },
+  containerFlatList: {
+    padding: moderateScale(10)},
 });

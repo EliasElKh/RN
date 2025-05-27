@@ -54,6 +54,22 @@ export const styles = StyleSheet.create({
     marginLeft: moderateScale(5),
     alignItems: 'center',
   },
+  addCartButton:{
+    backgroundColor: '#2ecc71',
+    borderRadius: moderateScale(4),
+    padding: moderateScale(12),
+    alignItems: 'center',
+    marginTop: moderateScale(16),
+    marginBottom: moderateScale(16),
+  },
+  shareButton: {
+    flex: 1,
+    marginLeft: moderateScale(10),
+    backgroundColor: '#2196F3',
+    padding: moderateScale(12),
+    borderRadius: moderateScale(8),
+    alignItems: 'center',
+  },
 });
 
 export const darkCardStyles = StyleSheet.create({
@@ -108,6 +124,22 @@ export const darkCardStyles = StyleSheet.create({
     padding: moderateScale(8),
     borderRadius: moderateScale(4),
     marginLeft: moderateScale(5),
+    alignItems: 'center',
+  },
+  addCartButton:{
+    backgroundColor: '#2ecc71',
+    borderRadius: moderateScale(4),
+    padding: moderateScale(12),
+    alignItems: 'center',
+    marginTop: moderateScale(16),
+    marginBottom: moderateScale(16),
+  },
+  shareButton: {
+    flex: 1,
+    marginLeft: moderateScale(10),
+    backgroundColor: '#1976D2',
+    padding: moderateScale(12),
+    borderRadius: moderateScale(8),
     alignItems: 'center',
   },
 });

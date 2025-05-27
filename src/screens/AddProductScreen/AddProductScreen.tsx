@@ -22,6 +22,7 @@ import { moderateScale } from '../../utils/scalingUtils';
 import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+// import PushNotification from 'react-native-push-notification';
 
 const productSchema = z.object({
   title: z.string().min(1, 'Title is required'),
@@ -109,6 +110,13 @@ export const AddProductScreen: React.FC = () => {
           success = true;
           Alert.alert('Success', 'Product created successfully.');
           navigation.goBack();
+          // const product = await res.json(); // assuming the response contains the created product data
+          // PushNotification.localNotification({
+          //   title: 'New Product Added!',
+          //   message: `Check out "${product.title}".`, // use actual product data from backend
+          //   userInfo: { productId: product.id }, // for Android 13+ use userInfo
+          //   data: { link: `myapp://product/${product.id}` },
+          // });
         } else {
           attempt++;
           if (attempt >= MAX_RETRIES) {

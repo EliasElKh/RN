@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, ActivityIndicator, Alert, TouchableOpacity } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { View, Text, ScrollView, ActivityIndicator, Alert, TouchableOpacity, Animated, Share } from 'react-native';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { CardImage } from '../../components/atoms/CardImage/CardImage';
 import { Label } from '../../components/atoms/Label';
@@ -18,6 +18,15 @@ import { moderateScale } from '../../utils/scalingUtils';
 type ProductDetailRouteProp = RouteProp<{ ProductDetail: { id: string } }, 'ProductDetail'>;
 
 export const ProductDetailScreen: React.FC = () => {
+    const scale = useRef(new Animated.Value(1)).current;
+
+    const handleImagePressIn = () => {
+      Animated.spring(scale, { toValue: 0.95, useNativeDriver: true }).start();
+    };
+
+    const handleImagePressOut = () => {
+      Animated.spring(scale, { toValue: 1, useNativeDriver: true }).start();
+    };
   const route = useRoute<ProductDetailRouteProp>();
   const { id } = route.params;
   const navigation = useNavigation();
@@ -73,6 +82,18 @@ const fetchUserProfile = React.useCallback(async (userId: string) => {
     }
   }
 }, [accessToken, userProfile]);
+
+const handleShare = async () => {
+  try {
+    const url = `myapp://product/${product?.data?._id}`;
+    const title = product?.data?.title || 'Product';
+    await Share.share({
+      message: `Check out this product: ${title}\n\n<${url}>`,
+    });
+  } catch (error) {
+    Alert.alert('Error', 'Failed to share product.');
+  }
+};
 
 
   useEffect(() => {
@@ -131,7 +152,6 @@ const fetchUserProfile = React.useCallback(async (userId: string) => {
     );
   }
 
-
   return (
     <ScrollView style={styles.container}>
   <TouchableOpacity style={styles.goBack} onPress={() => navigation.goBack()}>
@@ -142,7 +162,7 @@ const fetchUserProfile = React.useCallback(async (userId: string) => {
     />
   </TouchableOpacity>
 
-  <Swiper style={styles.swiper} showsPagination loop>
+  {/* <Swiper style={styles.swiper} showsPagination loop>
     {product.data.images.map((img: { url: string }, idx: number) => {
       const imageUrl = `https://backend-practice.eurisko.me${img.url}`;
       return (
@@ -154,11 +174,31 @@ const fetchUserProfile = React.useCallback(async (userId: string) => {
         </TouchableOpacity>
       );
     })}
+  </Swiper> */}
+  <Swiper style={ styles.swiper } showsPagination loop>
+    {product.data.images.map((img: { url: string }, idx: number) => {
+      const imageUrl = `https://backend-practice.eurisko.me${img.url}`;
+      return (
+        <TouchableOpacity
+          key={idx}
+          onLongPress={() => handleLongPress(imageUrl)}
+          onPressIn={handleImagePressIn}
+          onPressOut={handleImagePressOut}
+        >
+          <Animated.View style={{ transform: [{ scale }] }}>
+            <CardImage uri={imageUrl} />
+          </Animated.View>
+        </TouchableOpacity>
+      );
+    })}
   </Swiper>
 
   <Label text={product.data.title} style={styles.title} />
   <Label text={`$${product.data.price}`} style={styles.price} />
   <Label text={product.data.description} style={styles.description} />
+  <TouchableOpacity onPress={handleShare} style={styles.shareButton}>
+  <MaterialIcons name="share" size={24} color={theme === 'dark' ? '#fff' : '#000'} />
+  </TouchableOpacity>
   {'i dont have a API Key FOr google maps'}
   {/* <MapView
     style={styles.map}

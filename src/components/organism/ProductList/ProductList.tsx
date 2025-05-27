@@ -5,6 +5,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 import { useAuth } from '../../../context/AuthContext';
 import { ProductListProps } from './ProductList.types';
 import { styles } from './ProductList.styles';
+import ProductSkeleton from './ProductSkeleton';
 
 
 
@@ -112,13 +113,13 @@ export const ProductList: React.FC<ProductListProps> = ({ searchQuery, sortOrder
     await fetchProducts(1, true);
   };
 
-  if (loading && products.length === 0) {
-    return (
-      <View style={styles.centered}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
-  }
+  // if (loading && products.length === 0) {
+  //   return (
+  //     <View style={styles.centered}>
+  //       <ActivityIndicator size="large" color="#0000ff" />
+  //     </View>
+  //   );
+  // }
 
   if (isSearch && !loading && products.length === 0) {
     return (
@@ -127,6 +128,16 @@ export const ProductList: React.FC<ProductListProps> = ({ searchQuery, sortOrder
       </View>
     );
   }
+  if (loading && products.length === 0) {
+  return (
+    <FlatList
+      data={Array.from({ length: 6 })}
+      keyExtractor={(_, index) => index.toString()}
+      renderItem={() => <ProductSkeleton />}
+      contentContainerStyle={styles.containerFlatList}
+    />
+  );
+}
 
   return (
     <FlatList

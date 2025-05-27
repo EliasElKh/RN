@@ -10,9 +10,16 @@ import {darkCardStyles} from './ProductCard.styles';
 import { useAuth } from '../../../context/AuthContext';
 import Swiper from 'react-native-swiper';
 import { handleLongPress } from '../../../utils/permissions';
+import { Animated } from 'react-native';
+import { useRef } from 'react';
+import { useCart } from '../../../context/CartContext/CartContext';
+import { Share } from 'react-native';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 export const ProductCard: React.FC<ProductCardProps> = ({ item,userId,onDeleteSuccess }) => {
     const navigation = useNavigation<any>();
+    const {addToCart,cart} = useCart();
+    const incart = cart.find(c=> c.product._id === item._id);
     const isOwner = item.user._id === userId;
     const [isDeleting, setIsDeleting] = useState(false);
     const { accessToken } = useAuth();
@@ -63,11 +70,30 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item,userId,onDeleteSu
       ]
     );
   };
+  const scale = useRef(new Animated.Value(1)).current;
 
+  const handleImagePressIn = () => {
+    Animated.spring(scale, { toValue: 0.95, useNativeDriver: true }).start();
+  };
+
+  const handleImagePressOut = () => {
+    Animated.spring(scale, { toValue: 1, useNativeDriver: true }).start();
+  };
+  const handleShare = async () => {
+    try {
+      const url = `myapp://product/${item?._id}`;
+      const title = item?.title || 'Product';
+      await Share.share({
+        message: `Check out this product: ${title}\n\n<${url}>`,
+      });
+    } catch (error) {
+      Alert.alert('Error', 'Failed to share product.');
+    }
+  };
 
      return (
     <TouchableOpacity style={styles.card} onPress={handlePress}>
-      <Swiper style={ styles.swiper } showsPagination loop>
+      {/* <Swiper style={ styles.swiper } showsPagination loop>
               {item.images.map((img: { url: string }, idx: number) => {
                 const imageUrl = `https://backend-practice.eurisko.me${img.url}`;
                 return (
@@ -76,10 +102,39 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item,userId,onDeleteSu
                   </TouchableOpacity>
                 );
               })}
-            </Swiper>
+            </Swiper> */}
+            <Swiper style={ styles.swiper } showsPagination loop>
+  {item.images.map((img: { url: string }, idx: number) => {
+    const imageUrl = `https://backend-practice.eurisko.me${img.url}`;
+    return (
+      <TouchableOpacity
+        key={idx}
+        onLongPress={() => handleLongPress(imageUrl)}
+        onPressIn={handleImagePressIn}
+        onPressOut={handleImagePressOut}
+      >
+        <Animated.View style={{ transform: [{ scale }] }}>
+          <CardImage uri={imageUrl} />
+        </Animated.View>
+      </TouchableOpacity>
+    );
+  })}
+</Swiper>
       <Label text={item.title} style={styles.title} />
       <Label text={teaser} style={styles.description} />
       <Label text={`$${item.price}`} style={styles.price} />
+      <TouchableOpacity
+            style={styles.addCartButton}
+            onPress={() => addToCart(item)}
+          >
+            <Label text={incart ? `Added (${incart.quantity})` : 'Add to Cart'} />
+          </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.shareButton}
+        onPress={handleShare}
+      >
+      <MaterialIcons name="share" size={20} color="#fff" />
+      </TouchableOpacity>
 
       {isOwner && (
         <View style={styles.buttonRow}>
@@ -101,6 +156,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item,userId,onDeleteSu
               <Label text="Delete" />
             )}
           </TouchableOpacity>
+          
         </View>
       )}
     </TouchableOpacity>
