@@ -142,6 +142,7 @@ export const ProductList: React.FC<ProductListProps> = ({ searchQuery, sortOrder
   return (
     <FlatList
       data={products}
+      testID="flatlist"
       keyExtractor={(item) => item._id}
       renderItem={({ item }) => (
         <ProductCard

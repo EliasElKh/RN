@@ -6,16 +6,18 @@ import { useTheme } from '../../../context/ThemeContext/ThemeContext';
 import { darkInputStyles } from './input.styles';
 
 
-export const Input: React.FC<Props> = ({ value, onChangeText, secureTextEntry = false, isError }) => {
+export const Input: React.FC<Props> = ({ value, onChangeText, secureTextEntry = false, isError,placeholder = ''}) => {
   const {theme } = useTheme();
           const styles = theme === 'dark' ? darkInputStyles : light;
   return (
     <TextInput
+      testID="text-input"
       style={[styles.input, isError && styles.errorBorder]}
       value={value}
       onChangeText={onChangeText}
       secureTextEntry={secureTextEntry}
       placeholderTextColor="#999"
+      placeholder={placeholder}
     />
   );
 };

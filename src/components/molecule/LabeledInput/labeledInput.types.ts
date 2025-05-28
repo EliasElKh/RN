@@ -4,4 +4,5 @@ export type LabeledInputProps = {
     onChangeText: (text: string) => void;
     secureTextEntry?: boolean;
     isError?: boolean;
+    placeholder?: string;
   };

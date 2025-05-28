@@ -11,8 +11,8 @@ import { darkContainerStyles } from './loginForm.styles';
 import { LoginFormProps } from './LoginForm.types';
 
 const schema = z.object({
-  username: z.string().email().nonempty('Username is required'),
-  password: z.string().nonempty('Password is required'),
+  username: z.string().min(1, 'Username is required').email('Invalid email'),
+  password: z.string().min(1, 'Password is required'),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -65,6 +65,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess, onForgotPa
               value={value}
               onChangeText={onChange}
               isError={!!errors.username}
+              placeholder="Email"
             />
             {errors.username && (
               <Text style={styles.error}>{errors.username.message}</Text>
@@ -84,6 +85,7 @@ export const LoginForm: React.FC<LoginFormProps> = ({ onLoginSuccess, onForgotPa
               onChangeText={onChange}
               secureTextEntry
               isError={!!errors.password}
+              placeholder="Password"
             />
             {errors.password && (
               <Text style={styles.error}>{errors.password.message}</Text>

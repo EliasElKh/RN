@@ -62,6 +62,7 @@ export const VerificationForm: React.FC<Props> = ({ onVerificationSuccess }) => 
             maxLength={1}
             keyboardType="numeric"
             style={[styles.inputBox, error && styles.inputBoxError]}
+                  testID={`otp-input-${index}`}
           />
         ))}
       </View>

@@ -205,6 +205,7 @@ const handleImageSelection = (response: any) => {
   if (loading) {
     return (
       <SafeAreaView style={styles.container}>
+        testID="loading-spinner"
         <ActivityIndicator size="large" color={theme === 'dark' ? 'white' : 'black'} />
       </SafeAreaView>
     );

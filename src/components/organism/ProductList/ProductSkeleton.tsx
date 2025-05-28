@@ -4,8 +4,11 @@ import { moderateScale } from '../../../utils/scalingUtils';
 
 export default function ProductSkeleton() {
   return (
+    <View testID="skeleton-card">
+
     <SkeletonPlaceholder>
       <View
+      
         style={{
           backgroundColor: '#fff',
           borderRadius: moderateScale(8),
@@ -76,5 +79,6 @@ export default function ProductSkeleton() {
         </View>
       </View>
     </SkeletonPlaceholder>
+    </View>
   );
 }

@@ -15,6 +15,7 @@ export const LabeledInput: React.FC<LabeledInputProps> = ({
   onChangeText,
   secureTextEntry = false,
   isError = false,
+  placeholder = '',
 }) => {
   const {theme } = useTheme();
             const styles = theme === 'dark' ? darkContainerStyles : light;
@@ -26,6 +27,7 @@ export const LabeledInput: React.FC<LabeledInputProps> = ({
       onChangeText={onChangeText}
       secureTextEntry={secureTextEntry}
       isError={isError}
+      placeholder={placeholder}
     />
   </View>
 );
