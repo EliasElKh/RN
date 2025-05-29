@@ -53,7 +53,7 @@ export const HomeScreen: React.FC = () => {
   return (
     <View style={styles.container}>
       <View style={styles.topButtons}>
-        <TouchableOpacity style={styles.button} onPress={logout}>
+        <TouchableOpacity testID="logout-button" style={styles.button} onPress={logout}>
           <MaterialIcons name="logout" size={20} color="#fff" />
           {/* <Text style={styles.text}>Sign Out</Text> */}
         </TouchableOpacity>

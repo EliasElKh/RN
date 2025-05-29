@@ -166,6 +166,7 @@ const resendOtp = async () => {
         variant="text"
         disabled={isResending}
         textStyle={style.textButtonText}
+        testID="resend-otp-button"
       />
     </View>
     </View>

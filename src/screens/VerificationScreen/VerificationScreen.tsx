@@ -26,7 +26,7 @@ export const VerificationScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Enter OTP</Text>
-      <VerificationForm onVerificationSuccess={handleVerificationSuccess} />
+      <VerificationForm  onVerificationSuccess={handleVerificationSuccess} />
     </View>
   );
 };

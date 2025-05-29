@@ -9,4 +9,5 @@ export type ButtonProps = {
   textStyle?: object;
   loading?: boolean;
   icon?: React.ReactNode;
+  testID?: string;
 };

@@ -5,7 +5,7 @@ import { ButtonProps } from './button.types';
 import { useTheme } from '../../../context/ThemeContext/ThemeContext';
 import { darkButtonStyles } from './Button.styles.ts';
 
-export const Button: React.FC<ButtonProps> = ({ title, onPress, disabled = false }) => {
+export const Button: React.FC<ButtonProps> = ({ title, onPress, disabled = false, testID }) => {
   const {theme } = useTheme();
       const styles = theme === 'dark' ? darkButtonStyles : light;
   return (
@@ -14,6 +14,7 @@ export const Button: React.FC<ButtonProps> = ({ title, onPress, disabled = false
       onPress={onPress}
       activeOpacity={0.7}
       disabled={disabled}
+      testID={testID}
     >
       <Text style={styles.text}>{title}</Text>
     </TouchableOpacity>

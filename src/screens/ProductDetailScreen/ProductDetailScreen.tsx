@@ -154,7 +154,7 @@ const handleShare = async () => {
 
   return (
     <ScrollView style={styles.container}>
-  <TouchableOpacity style={styles.goBack} onPress={() => navigation.goBack()}>
+  <TouchableOpacity  testID="back-button" style={styles.goBack} onPress={() => navigation.goBack()}>
     <MaterialIcons
       name="arrow-back"
       size={moderateScale(24)}
@@ -196,7 +196,7 @@ const handleShare = async () => {
   <Label text={product.data.title} style={styles.title} />
   <Label text={`$${product.data.price}`} style={styles.price} />
   <Label text={product.data.description} style={styles.description} />
-  <TouchableOpacity onPress={handleShare} style={styles.shareButton}>
+  <TouchableOpacity testID="share-button" onPress={handleShare} style={styles.shareButton}>
   <MaterialIcons name="share" size={24} color={theme === 'dark' ? '#fff' : '#000'} />
   </TouchableOpacity>
   {'i dont have a API Key FOr google maps'}
