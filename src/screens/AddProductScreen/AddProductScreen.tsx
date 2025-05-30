@@ -22,7 +22,10 @@ import { moderateScale } from '../../utils/scalingUtils';
 import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-// import PushNotification from 'react-native-push-notification';
+import PushNotification from 'react-native-push-notification';
+import { useEffect } from 'react';
+import { PermissionsAndroid, Platform } from 'react-native';
+
 
 const productSchema = z.object({
   title: z.string().min(1, 'Title is required'),
@@ -36,6 +39,35 @@ const productSchema = z.object({
 type ProductFormData = z.infer<typeof productSchema>;
 
 export const AddProductScreen: React.FC = () => {
+
+
+useEffect(() => {
+  // Request permission on Android 13+
+  async function askPermission() {
+    if (Platform.OS === 'android' && Platform.Version >= 33) {
+      await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS
+      );
+    }
+  }
+
+  askPermission();
+
+  PushNotification.createChannel(
+    {
+      channelId: 'CreateProduct-channel',
+      channelName: 'Product Creation Channel',
+      importance: 4,
+    },
+    (created: any) => console.log(`createChannel returned '${created}'`)
+  );
+
+  PushNotification.localNotification({
+    channelId: 'CreateProduct-channel',
+    title: 'Hello',
+    message: 'Test notification',
+  });
+}, []);
   const { theme } = useTheme();
   const styles = theme === 'dark' ? darkStyles : light;
   const { accessToken } = useAuth();
@@ -64,6 +96,7 @@ export const AddProductScreen: React.FC = () => {
   };
 
   const onSubmit = async (data: ProductFormData) => {
+
     if (images.length === 0) {
       return Alert.alert('Validation Error', 'At least one image is required.');
     }
@@ -238,7 +271,6 @@ export const AddProductScreen: React.FC = () => {
 
         <Button title="Create Product" onPress={handleSubmit(onSubmit)} />
       </ScrollView>
-
       {loading && (
         <View style={styles.loading}>
           <ActivityIndicator size="large" color="#ffffff" />
@@ -247,3 +279,5 @@ export const AddProductScreen: React.FC = () => {
     </View>
   );
 };
+
+
