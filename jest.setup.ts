@@ -36,3 +36,51 @@ jest.mock('react-native-gesture-handler', () => {
     State: {},
   };
 });
+// jest.setup.ts
+jest.mock('react-native-push-notification', () => ({
+  configure: jest.fn(),
+  localNotification: jest.fn(),
+  localNotificationSchedule: jest.fn(),
+  cancelAllLocalNotifications: jest.fn(),
+  cancelLocalNotifications: jest.fn(),
+  requestPermissions: jest.fn(),
+  checkPermissions: jest.fn((cb: Function) => cb({ alert: true, badge: true, sound: true })),
+  createChannel: jest.fn((_: any, cb: Function) => cb(true)),
+  deleteChannel: jest.fn(),
+  getChannels: jest.fn((cb: Function) => cb(['default'])),
+  abandonPermissions: jest.fn(),
+}));
+
+Object.defineProperty(global, 'localStorage', {
+  value: {
+    getItem: jest.fn(() => null),
+    setItem: jest.fn(),
+    removeItem: jest.fn(),
+    clear: jest.fn(),
+  },
+  writable: true,
+});
+jest.mock('@react-native-async-storage/async-storage', () => {
+  let store: Record<string, string> = {};
+
+  return {
+    setItem: jest.fn(async (key: string, value: string) => {
+      store[key] = value;
+      return null;
+    }),
+    getItem: jest.fn(async (key: string) => {
+      return store[key] || null;
+    }),
+    removeItem: jest.fn(async (key: string) => {
+      delete store[key];
+      return null;
+    }),
+    clear: jest.fn(async () => {
+      store = {};
+      return null;
+    }),
+    getAllKeys: jest.fn(async () => {
+      return Object.keys(store);
+    }),
+  };
+});

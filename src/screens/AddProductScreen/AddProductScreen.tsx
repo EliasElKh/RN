@@ -62,11 +62,6 @@ useEffect(() => {
     (created: any) => console.log(`createChannel returned '${created}'`)
   );
 
-  PushNotification.localNotification({
-    channelId: 'CreateProduct-channel',
-    title: 'Hello',
-    message: 'Test notification',
-  });
 }, []);
   const { theme } = useTheme();
   const styles = theme === 'dark' ? darkStyles : light;
@@ -143,13 +138,11 @@ useEffect(() => {
           success = true;
           Alert.alert('Success', 'Product created successfully.');
           navigation.goBack();
-          // const product = await res.json(); // assuming the response contains the created product data
-          // PushNotification.localNotification({
-          //   title: 'New Product Added!',
-          //   message: `Check out "${product.title}".`, // use actual product data from backend
-          //   userInfo: { productId: product.id }, // for Android 13+ use userInfo
-          //   data: { link: `myapp://product/${product.id}` },
-          // });
+           PushNotification.localNotification({
+            channelId: 'CreateProduct-channel',
+            title: 'Product Created',
+            message: 'Your product has been created successfully.',
+          });
         } else {
           attempt++;
           if (attempt >= MAX_RETRIES) {

@@ -3,6 +3,15 @@ import { render, fireEvent, waitFor, act } from '@testing-library/react-native';
 import { AddProductScreen } from './AddProductScreen';
 import { Alert } from 'react-native';
 
+jest.mock('react-native-push-notification', () => {
+  // Attach mocks to the returned object
+  return {
+    localNotification: jest.fn(),
+    createChannel: jest.fn(),
+  };
+});
+// Mock react-native-push-notification
+
 // Mocks
 jest.mock('../../context/ThemeContext/ThemeContext', () => ({
   useTheme: () => ({ theme: 'light' }),
@@ -114,5 +123,11 @@ describe('AddProductScreen', () => {
         'Product created successfully.'
       )
     );
+    const PushNotification = require('react-native-push-notification');
+    expect(PushNotification.localNotification).toHaveBeenCalledWith({
+      channelId: 'CreateProduct-channel',
+      title: 'Product Created',
+      message: 'Your product has been created successfully.',
+    });
   });
 });

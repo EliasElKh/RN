@@ -1,10 +1,10 @@
-import React, { createContext, useContext, useState } from 'react';
 
 export type CartItem = {
   product: any;
   quantity: number;
 };
-
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 type CartContextType = {
   cart: CartItem[];
   addToCart: (product: any) => void;
@@ -17,7 +17,25 @@ type CartContextType = {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider: React.FC<{children: React.ReactNode}> = ({ children }) => {
-  const [cart, setCart] = useState<CartItem[]>([]);
+
+
+const [cart, setCart] = useState<CartItem[]>([]);
+
+// Load cart from AsyncStorage
+useEffect(() => {
+  (async () => {
+    const storedCart = await AsyncStorage.getItem('cart');
+    if (storedCart) {
+      setCart(JSON.parse(storedCart));
+    }
+  })();
+}, []);
+
+// Save cart to AsyncStorage on change
+useEffect(() => {
+  AsyncStorage.setItem('cart', JSON.stringify(cart));
+}, [cart]);
+
 
   const addToCart = (product: any) => {
     setCart(prev => {
