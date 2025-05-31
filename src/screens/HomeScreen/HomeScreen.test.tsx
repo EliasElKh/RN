@@ -5,7 +5,7 @@ import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext/ThemeContext';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
-import { Linking } from 'react-native';
+
 
 beforeAll(() => {
   jest.spyOn(console, 'error').mockImplementation((msg) => {
@@ -116,12 +116,5 @@ describe('HomeScreen', () => {
         }),
       );
     });
-  });
-
-  it('opens deep link when "Test Deep Link" button is pressed', async () => {
-    const openURLSpy = jest.spyOn(Linking, 'openURL');
-    const { getByText } = render(<HomeScreen />);
-    fireEvent.press(getByText('Test Deep Link'));
-    expect(openURLSpy).toHaveBeenCalledWith('myapp://product/682f81f1c2649451e2c06dd9');
   });
 });

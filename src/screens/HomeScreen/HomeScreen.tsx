@@ -11,8 +11,6 @@ import { TextInput } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { useEffect } from 'react';
 import axios from 'axios';
-import { Linking } from 'react-native';
-import { Button } from '../../components/atoms/Button';
 
 export const HomeScreen: React.FC = () => {
   const { logout } = useAuth();
@@ -70,12 +68,7 @@ export const HomeScreen: React.FC = () => {
           <MaterialIcons name="edit" size={20} color="#fff" />
           <Text style={styles.text}>Edit Profile</Text>
         </TouchableOpacity>
-        <Button
-  title="Test Deep Link"
-  onPress={() => {
-    Linking.openURL('myapp://product/682f81f1c2649451e2c06dd9');
-  }}
-/>
+
 
       </View>
 

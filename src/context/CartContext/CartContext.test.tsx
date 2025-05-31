@@ -2,6 +2,17 @@ import React from 'react';
 import { render, act, fireEvent } from '@testing-library/react-native';
 import { CartProvider, useCart } from './CartContext'; // adjust path if needed
 import { Text, Button } from 'react-native';
+beforeAll(() => {
+  Object.defineProperty(global, 'localStorage', {
+    value: {
+      getItem: jest.fn(() => null),
+      setItem: jest.fn(),
+      removeItem: jest.fn(),
+      clear: jest.fn(),
+    },
+    writable: true,
+  });
+});
 
 const sampleProduct = { _id: '1', name: 'Test Product' };
 

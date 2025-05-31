@@ -4,6 +4,7 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+    paddingTop: 40,
     backgroundColor: '#fff',
   },
   backButton: {
@@ -42,7 +43,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 2,
     borderRadius: 4,
-    backgroundColor: '#dff0d8',
+    // backgroundColor: '#dff0d8',
     marginHorizontal: 2,
     minWidth: 28,
     alignItems: 'center',

@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
+    "@react-native-async-storage/async-storage": "^2.1.2",
     "@react-native-camera-roll/camera-roll": "^7.10.0",
     "@react-native-masked-view/masked-view": "^0.2.9",
     "@react-native-picker/picker": "^2.11.0",
@@ -28,6 +29,7 @@
     "react-native-linear-gradient": "^2.8.3",
     "react-native-maps": "^1.23.8",
     "react-native-permissions": "^5.4.0",
+    "react-native-push-notification": "^8.1.1",
     "react-native-safe-area-context": "^5.4.0",
     "react-native-screens": "^4.10.0",
     "react-native-skeleton-placeholder": "^5.2.4",
@@ -63,10 +65,12 @@
     "node": ">=18"
   },
   "jest": {
-  "preset": "react-native",
-  "setupFilesAfterEnv": ["<rootDir>/jest.setup.ts"],
-  "transformIgnorePatterns": [
-    "node_modules/(?!(jest-)?react-native|@react-native|@react-navigation|react-native-gesture-handler|react-native-screens|react-native-safe-area-context)"
-  ]
-}
+    "preset": "react-native",
+    "setupFilesAfterEnv": [
+      "<rootDir>/jest.setup.ts"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!(jest-)?react-native|@react-native|@react-navigation|react-native-gesture-handler|react-native-screens|react-native-safe-area-context)"
+    ]
+  }
 }
