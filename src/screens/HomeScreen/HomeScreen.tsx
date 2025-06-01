@@ -11,6 +11,7 @@ import { TextInput } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { useEffect } from 'react';
 import axios from 'axios';
+import crashlytics from '@react-native-firebase/crashlytics';
 
 export const HomeScreen: React.FC = () => {
   const { logout } = useAuth();
@@ -48,6 +49,8 @@ export const HomeScreen: React.FC = () => {
 
 
 
+
+
   return (
     <View style={styles.container}>
       <View style={styles.topButtons}>
@@ -66,6 +69,13 @@ export const HomeScreen: React.FC = () => {
           onPress={() => navigation.navigate('EditProfile')}
         >
           <MaterialIcons name="edit" size={20} color="#fff" />
+          <Text style={styles.text}>Edit Profile</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => crashlytics().crash()}
+        >
+          <MaterialIcons name="crash" size={20} color="#fff" />
           <Text style={styles.text}>Edit Profile</Text>
         </TouchableOpacity>
 
