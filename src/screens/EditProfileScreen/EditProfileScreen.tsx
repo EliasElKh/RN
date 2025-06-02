@@ -18,6 +18,7 @@ import { useAuth } from '../../context/AuthContext';
 import { requestCameraPermission, requestStoragePermission } from '../../utils/permissions';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
+import crashlytics from '@react-native-firebase/crashlytics';
 
 
 export const EditProfileScreen = () => {
@@ -52,6 +53,7 @@ export const EditProfileScreen = () => {
         throw new Error('Failed to fetch profile');
       }
     } catch (fetchErr) {
+      crashlytics().recordError(fetchErr as Error);
       throw fetchErr;
     }
   };
@@ -83,6 +85,7 @@ export const EditProfileScreen = () => {
     setImageUri(fullImageUrl);
     setError(null);
   } else {
+    crashlytics().recordError(new Error('Failed to fetch profile after multiple attempts'));
     setError('Failed to fetch profile after multiple attempts.');
   }
 

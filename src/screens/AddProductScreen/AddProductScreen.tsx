@@ -25,6 +25,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import PushNotification from 'react-native-push-notification';
 import { useEffect } from 'react';
 import { PermissionsAndroid, Platform } from 'react-native';
+import crashlytics from '@react-native-firebase/crashlytics';
 
 
 const productSchema = z.object({
@@ -152,6 +153,7 @@ useEffect(() => {
       } catch (err) {
         attempt++;
         if (attempt >= MAX_RETRIES) {
+          crashlytics().recordError(err as Error);
           Alert.alert('Error', 'An unexpected error occurred after multiple attempts.');
         }
       }

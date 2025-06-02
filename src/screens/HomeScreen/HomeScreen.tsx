@@ -39,6 +39,7 @@ export const HomeScreen: React.FC = () => {
         setUserId(response.data.data.user.id);
         success = true;
       } catch (error) {
+        crashlytics().recordError(error as Error);
         attempts++;
       }
     }
@@ -73,7 +74,7 @@ export const HomeScreen: React.FC = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => crashlytics().crash()}
+          onPress={() => {throw new Error('Test Crash');}}
         >
           <MaterialIcons name="crash" size={20} color="#fff" />
           <Text style={styles.text}>Edit Profile</Text>

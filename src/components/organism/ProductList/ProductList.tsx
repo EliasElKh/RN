@@ -6,6 +6,7 @@ import { useAuth } from '../../../context/AuthContext';
 import { ProductListProps } from './ProductList.types';
 import { styles } from './ProductList.styles';
 import ProductSkeleton from './ProductSkeleton';
+import crashlytics from '@react-native-firebase/crashlytics';
 
 
 
@@ -88,6 +89,7 @@ export const ProductList: React.FC<ProductListProps> = ({ searchQuery, sortOrder
           setHasNextPage(false);
         }
       } catch (error) {
+        crashlytics().recordError(error as Error);
       } finally {
         setLoading(false);
         setRefreshing(false);
