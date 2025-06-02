@@ -72,13 +72,13 @@ export const HomeScreen: React.FC = () => {
           <MaterialIcons name="edit" size={20} color="#fff" />
           <Text style={styles.text}>Edit Profile</Text>
         </TouchableOpacity>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.button}
           onPress={() => {throw new Error('Test Crash');}}
         >
           <MaterialIcons name="crash" size={20} color="#fff" />
           <Text style={styles.text}>Edit Profile</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
 
       </View>
