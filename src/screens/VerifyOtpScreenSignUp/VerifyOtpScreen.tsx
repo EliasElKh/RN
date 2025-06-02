@@ -11,6 +11,7 @@ import { Label } from '../../components/atoms/Label';
 import { Button } from '../../components/atoms/Button';
 import { styles } from './VerifyOtpScreen.styles';
 import { useTheme } from '../../context/ThemeContext/ThemeContext';
+import crashlytics from '@react-native-firebase/crashlytics';
 
 interface RouteParams {
   email: string;
@@ -72,6 +73,7 @@ export default function VerifyOtpScreen() {
       }
       attempts++;
       if (attempts < maxRetries) {
+        crashlytics().recordError(error as Error);
         await new Promise(res => setTimeout(res, 1000));
       }
     }
@@ -118,6 +120,7 @@ const resendOtp = async () => {
 
       attempts++;
       if (attempts < maxRetries) {
+        crashlytics().recordError(error as Error);
         await new Promise(res => setTimeout(res, 1000));
       }
     }

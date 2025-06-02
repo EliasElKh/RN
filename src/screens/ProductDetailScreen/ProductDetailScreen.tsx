@@ -13,6 +13,7 @@ import { handleLongPress } from '../../utils/permissions';
 import { Linking } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { moderateScale } from '../../utils/scalingUtils';
+import crashlytics from '@react-native-firebase/crashlytics';
 // import MapView, { Marker } from 'react-native-maps';
 
 type ProductDetailRouteProp = RouteProp<{ ProductDetail: { id: string } }, 'ProductDetail'>;
@@ -62,6 +63,7 @@ const fetchUserProfile = React.useCallback(async (userId: string) => {
       });
 
       if (!res.ok) {
+        crashlytics().recordError(new Error(`HTTP error! status: ${res.status}`));
         throw new Error(`HTTP error! status: ${res.status}`);
       }
 

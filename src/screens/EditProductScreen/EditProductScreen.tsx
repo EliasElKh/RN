@@ -20,6 +20,7 @@ import { requestStoragePermission } from '../../utils/permissions';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { moderateScale } from '../../utils/scalingUtils';
 import { darkStyles } from '../AddProductScreen/AddProductScreen.styles';
+import crashlytics from '@react-native-firebase/crashlytics';
 
 
 export const EditProductScreen: React.FC = () => {
@@ -107,6 +108,7 @@ const handleSubmit = async () => {
     } catch (err) {
       attempts++;
       if (attempts === maxRetries) {
+        crashlytics().recordError(err as Error);
         Alert.alert('Error', 'An unexpected error occurred after multiple attempts.');
       }
     }
