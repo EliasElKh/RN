@@ -4,7 +4,7 @@ import { scaleFont } from '../../utils/fontScaling';
 
 export const styles = StyleSheet.create({
   container: {
-    flex: moderateScale(1),
+    flex: 1,
     padding: moderateScale(16),
     paddingTop: moderateScale(40),
     backgroundColor: '#fff',
@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     top: moderateScale(18),
     left: moderateScale(12),
-    zIndex: moderateScale(10),
+    zIndex:Math.round(moderateScale(10)),
     backgroundColor: 'transparent',
   },
   heading: {
