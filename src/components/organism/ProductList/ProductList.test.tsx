@@ -164,6 +164,6 @@ describe('ProductList', () => {
       },
     });
 
-    // await waitFor(() => expect(getByText('Product 3')).toBeTruthy());
+
   });
 });

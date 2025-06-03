@@ -3,7 +3,7 @@ import { render, fireEvent, waitFor, act } from '@testing-library/react-native';
 import { Alert } from 'react-native';
 import { EditProductScreen } from './EditProductScreen';
 
-// Mocks
+
 jest.mock('../../context/ThemeContext/ThemeContext', () => ({
   useTheme: () => ({ theme: 'light' }),
 }));
@@ -33,7 +33,7 @@ jest.mock('../../utils/permissions', () => ({
   requestStoragePermission: jest.fn(() => Promise.resolve(true)),
 }));
 
-// Silence ActivityIndicator warnings
+
 jest.mock('react-native/Libraries/Components/ActivityIndicator/ActivityIndicator', () => 'ActivityIndicator');
 
 describe('EditProductScreen', () => {
@@ -54,9 +54,9 @@ describe('EditProductScreen', () => {
   it('shows validation error if any field or image is empty', async () => {
     const alertSpy = jest.spyOn(Alert, 'alert');
     const { getByPlaceholderText, getByText } = render(<EditProductScreen />);
-    // Clear a field to trigger validation
+
     fireEvent.changeText(getByPlaceholderText('Enter title'), '');
-    // Remove all images
+
     fireEvent.press(getByText('Select up to 5 images'));
     await act(async () => {
       fireEvent.press(getByText('Save Changes'));
@@ -80,7 +80,7 @@ describe('EditProductScreen', () => {
   });
 
   it('submits product and shows success alert', async () => {
-    global.fetch = jest.fn(() =>
+    globalThis.fetch = jest.fn(() =>
       Promise.resolve({
         ok: true,
         json: () => Promise.resolve({}),
@@ -89,9 +89,9 @@ describe('EditProductScreen', () => {
 
     const alertSpy = jest.spyOn(Alert, 'alert');
     const { getByText, getByPlaceholderText } = render(<EditProductScreen />);
-    // Change a field for realism
+
     fireEvent.changeText(getByPlaceholderText('Enter title'), 'Updated Title');
-    // Pick image to ensure images.length > 0
+
     const { launchImageLibrary } = require('react-native-image-picker');
     launchImageLibrary.mockImplementation((_opts: any, cb: (arg0: { assets: { uri: string; fileName: string; type: string; }[]; }) => any) =>
       cb({ assets: [{ uri: 'mock://uri.jpg', fileName: 'f.jpg', type: 'image/jpeg' }] })

@@ -44,7 +44,7 @@ export const AddProductScreen: React.FC = () => {
 
 
 useEffect(() => {
-  // Request permission on Android 13+
+
   async function askPermission() {
     if (Platform.OS === 'android' && Platform.Version >= 33) {
       await PermissionsAndroid.request(

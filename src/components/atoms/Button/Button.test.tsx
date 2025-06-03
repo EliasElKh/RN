@@ -3,7 +3,7 @@ import { render, fireEvent } from '@testing-library/react-native';
 import { Button } from './Button';
 import { ThemeProvider } from '../../../context/ThemeContext/ThemeContext';
 
-// Helper to wrap with theme context
+
 const AllProviders = ({ children }: { children: React.ReactNode }) => (
   <ThemeProvider>{children}</ThemeProvider>
 );

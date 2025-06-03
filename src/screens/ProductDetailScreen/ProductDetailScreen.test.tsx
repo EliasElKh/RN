@@ -4,7 +4,7 @@ import { Alert, Share, Linking } from 'react-native';
 import { ProductDetailScreen } from './ProductDetailScreen';
 import axios from 'axios';
     jest.spyOn(Share, 'share').mockImplementation(() => Promise.resolve({ action: 'sharedAction' }));
-// Mock navigation and route
+
 jest.mock('@react-navigation/native', () => ({
   useNavigation: () => ({ goBack: jest.fn() }),
   useRoute: () => ({
@@ -17,17 +17,17 @@ jest.mock('react-native-swiper', () => {
 });
 
 
-// Mock theme context
+
 jest.mock('../../context/ThemeContext/ThemeContext', () => ({
   useTheme: () => ({ theme: 'light' }),
 }));
 
-// Mock Auth context
+
 jest.mock('../../context/AuthContext', () => ({
   useAuth: () => ({ accessToken: 'mock-token' }),
 }));
 
-// Mock CardImage, Label, Swiper, permissions, scaling
+
 jest.mock('../../components/atoms/CardImage/CardImage', () => ({
   CardImage: ({ _uri }: { _uri: string }) => <></>,
 }));
@@ -59,22 +59,22 @@ const mockedProduct = {
 describe('ProductDetailScreen', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    global.fetch = jest.fn();
+    globalThis.fetch = jest.fn();
     jest.spyOn(Alert, 'alert').mockImplementation(() => {});
     jest.spyOn(Share, 'share').mockImplementation(() => Promise.resolve({ action: 'sharedAction' }));
     jest.spyOn(Linking, 'openURL').mockImplementation(() => Promise.resolve());
   });
 
   it('renders loading indicator initially', () => {
-    // product fetch promise never resolves so it stays loading
-    (global.fetch as jest.Mock).mockImplementation(() => new Promise(() => {}));
+
+    (globalThis.fetch as jest.Mock).mockImplementation(() => new Promise(() => {}));
     const {} = render(<ProductDetailScreen />);
-    // Provide testID to ActivityIndicator in your real component for easier querying
-    // expect(getByTestId('loading-indicator')).toBeTruthy();
+
+
   });
 
   it('shows alert if fetch fails after retries', async () => {
-    (global.fetch as jest.Mock).mockResolvedValue({
+    (globalThis.fetch as jest.Mock).mockResolvedValue({
       ok: false,
       status: 500,
       json: () => Promise.resolve({}),
@@ -86,7 +86,7 @@ describe('ProductDetailScreen', () => {
   });
 
   it('handles share button press', async () => {
-    (global.fetch as jest.Mock).mockImplementation((url: string) => {
+    (globalThis.fetch as jest.Mock).mockImplementation((url: string) => {
       if (url.includes('/products/')) {
         return Promise.resolve({
           ok: true,
@@ -103,7 +103,7 @@ describe('ProductDetailScreen', () => {
           }),
         });
       }
-      // user profile
+
       return Promise.resolve({
         ok: true,
         json: () => Promise.resolve({
@@ -114,13 +114,13 @@ describe('ProductDetailScreen', () => {
     });
 
     const { findByTestId } = render(<ProductDetailScreen />);
-    const shareButton = await findByTestId('share-button'); // Add testID to TouchableOpacity in your real component
+    const shareButton = await findByTestId('share-button');
     fireEvent.press(shareButton);
     expect(Share.share).toHaveBeenCalled();
   });
 
   it('back button navigates back', async () => {
-    (global.fetch as jest.Mock).mockImplementation((url: string) => {
+    (globalThis.fetch as jest.Mock).mockImplementation((url: string) => {
       if (url.includes('/products/')) {
         return Promise.resolve({
           ok: true,
@@ -146,8 +146,8 @@ describe('ProductDetailScreen', () => {
       });
     });
     const { findByTestId } = render(<ProductDetailScreen />);
-    const backButton = await findByTestId('back-button'); // Add testID to your TouchableOpacity
+    const backButton = await findByTestId('back-button');
     fireEvent.press(backButton);
-    // You'd want to check that goBack is called.
+
   });
 });

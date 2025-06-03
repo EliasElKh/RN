@@ -3,9 +3,9 @@ import { SignUpScreen } from './SignUpScreen';
 import { useTheme } from '../../context/ThemeContext/ThemeContext';
 import { styles as light, darkScreenStyles } from './signUpScreen.styles';
 
-// src/screens/SignUpScreen/SignUpScreen.test.tsx
 
-// Mocks
+
+
 jest.mock('../../components/molecule/SignUpForm/SignUpForm', () => ({
   SignUpForm: () => <></>,
 }));
@@ -23,7 +23,7 @@ jest.mock('./signUpScreen.styles', () => ({
   styles: {
     scrollview: { backgroundColor: 'white' },
     contentContaienr: {},
-    screen: { backgroundColor: 'white' },  // add backgroundColor here
+    screen: { backgroundColor: 'white' },
     header: {},
     container: {},
     loginText: {},
@@ -32,7 +32,7 @@ jest.mock('./signUpScreen.styles', () => ({
   darkScreenStyles: {
     scrollview: { backgroundColor: 'black' },
     contentContaienr: {},
-    screen: { backgroundColor: 'black' },  // add backgroundColor here
+    screen: { backgroundColor: 'black' },
     header: {},
     container: {},
     loginText: {},
@@ -50,11 +50,11 @@ describe('SignUpScreen styles', () => {
   it('uses light styles when theme is light', () => {
     (useTheme as jest.Mock).mockReturnValue({ theme: 'light' });
     const { getByText } = render(<SignUpScreen />);
-    // Check that the header is rendered
+
     expect(getByText('Create Account')).toBeTruthy();
-    // Check that the ScrollView uses light styles
-    // @testing-library/react-native doesn't expose style prop directly,
-    // but we can check that the mock was used
+
+
+
     expect(light.screen.backgroundColor).toBe('white');
   });
 

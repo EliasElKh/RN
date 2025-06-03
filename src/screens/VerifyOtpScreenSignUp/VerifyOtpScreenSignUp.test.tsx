@@ -1,10 +1,10 @@
-// import React from 'react';
+
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import VerifyOtpScreen from './VerifyOtpScreen';
 import axios from 'axios';
 import { Alert } from 'react-native';
 
-// Mocks
+
 jest.mock('axios');
 jest.mock('../../context/ThemeContext/ThemeContext', () => ({
   useTheme: () => ({ theme: 'light' }),

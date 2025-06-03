@@ -1,1 +1,1 @@
-declare module 'react-native-push-notification';
+declare module 'react-native-push-notification' { const PushNotification: any; export default PushNotification; }

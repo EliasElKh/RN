@@ -84,3 +84,16 @@ jest.mock('@react-native-async-storage/async-storage', () => {
     }),
   };
 });
+
+// jest.setup.js or setupFiles in jest.config.js
+jest.mock('@react-native-firebase/crashlytics', () => {
+  return () => ({
+    log: jest.fn(),
+    recordError: jest.fn(),
+    setUserId: jest.fn(),
+    setAttribute: jest.fn(),
+    setAttributes: jest.fn(),
+    crash: jest.fn(),
+    setCrashlyticsCollectionEnabled: jest.fn(),
+  });
+});
