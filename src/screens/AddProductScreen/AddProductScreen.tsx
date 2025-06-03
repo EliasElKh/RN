@@ -26,6 +26,7 @@ import PushNotification from 'react-native-push-notification';
 import { useEffect } from 'react';
 import { PermissionsAndroid, Platform } from 'react-native';
 import crashlytics from '@react-native-firebase/crashlytics';
+import {API_URL} from '@env';
 
 
 const productSchema = z.object({
@@ -126,7 +127,7 @@ useEffect(() => {
 
     while (attempt < MAX_RETRIES && !success) {
       try {
-        const res = await fetch('https://backend-practice.eurisko.me/api/products', {
+        const res = await fetch(`${API_URL}/api/products`, {
           method: 'POST',
           headers: {
             Authorization: `Bearer ${accessToken}`,

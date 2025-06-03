@@ -12,6 +12,7 @@ import { Button } from '../../components/atoms/Button';
 import { styles } from './VerifyOtpScreen.styles';
 import { useTheme } from '../../context/ThemeContext/ThemeContext';
 import crashlytics from '@react-native-firebase/crashlytics';
+import { API_URL } from '@env';
 
 interface RouteParams {
   email: string;
@@ -47,7 +48,7 @@ export default function VerifyOtpScreen() {
   while (attempts < maxRetries && !success) {
     try {
       const response = await axios.post(
-        'https://backend-practice.eurisko.me/api/auth/verify-otp',
+        `${API_URL}/api/auth/verify-otp`,
         {
           email,
           otp: data.otp,
@@ -74,7 +75,7 @@ export default function VerifyOtpScreen() {
       attempts++;
       if (attempts < maxRetries) {
         crashlytics().recordError(error as Error);
-        await new Promise(res => setTimeout(res, 1000));
+        await new Promise<void>(res => setTimeout(() => res(), 1000));
       }
     }
   }
@@ -97,7 +98,7 @@ const resendOtp = async () => {
   while (attempts < maxRetries && !success) {
     try {
       const response = await axios.post(
-        'https://backend-practice.eurisko.me/api/auth/resend-verification-otp',
+        `${API_URL}/api/auth/resend-verification-otp`,
         { email },
         {
           headers: { 'Content-Type': 'application/json' },
@@ -121,7 +122,7 @@ const resendOtp = async () => {
       attempts++;
       if (attempts < maxRetries) {
         crashlytics().recordError(error as Error);
-        await new Promise(res => setTimeout(res, 1000));
+        await new Promise<void>(res => setTimeout(() => res(), 1000));
       }
     }
   }

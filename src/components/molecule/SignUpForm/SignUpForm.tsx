@@ -11,6 +11,7 @@ import { useTheme } from '../../../context/ThemeContext/ThemeContext';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import { requestStoragePermission } from '../../../utils/permissions';
+import { API_URL } from '@env';
 
 
 const schema = z.object({
@@ -87,7 +88,7 @@ export const SignUpForm = () => {
   try {
     setLoading(true);
     const res = await axios.post(
-      'https://backend-practice.eurisko.me/api/auth/signup',
+      `${API_URL}/api/auth/signup`,
       formData,
       {
         headers: {

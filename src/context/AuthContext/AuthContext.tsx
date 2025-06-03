@@ -3,6 +3,7 @@ import React, { createContext, useState, ReactNode, useRef, useCallback } from '
 import axios from 'axios';
 import EncryptedStorage from 'react-native-encrypted-storage';
 import { AuthContextType } from './AuthContex.types.ts';
+import {API_URL} from '@env';
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -61,7 +62,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     while (attempt < maxRetries && !success) {
       try {
-        const response = await axios.post('https://backend-practice.eurisko.me/api/auth/login', {
+        const response = await axios.post(`${API_URL}/api/auth/login`, {
           email,
           password,
         });
@@ -105,7 +106,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   while (attempt < maxRetries && !success) {
     try {
       const response = await axios.post(
-        'https://backend-practice.eurisko.me/api/auth/refresh-token',
+        `${API_URL}/api/auth/refresh-token`,
         {
           refreshToken: rt,
         },
@@ -141,7 +142,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         throw error;
       }
 
-      await new Promise(resolve => setTimeout(resolve, 1000 * attempt));
+      await new Promise<void>(resolve => setTimeout(() => resolve(), 1000 * attempt));
     }
   }
 };

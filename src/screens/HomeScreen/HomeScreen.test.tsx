@@ -5,6 +5,7 @@ import { useAuth } from '../../context/AuthContext';
 import { useTheme } from '../../context/ThemeContext/ThemeContext';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
+import { API_URL } from '@env';
 
 
 beforeAll(() => {
@@ -108,7 +109,7 @@ describe('HomeScreen', () => {
     render(<HomeScreen />);
     await waitFor(() => {
       expect(axios.get).toHaveBeenCalledWith(
-        'https://backend-practice.eurisko.me/api/user/profile',
+        `${API_URL}/api/user/profile`,
         expect.objectContaining({
           headers: expect.objectContaining({
             Authorization: 'Bearer fake-token',
