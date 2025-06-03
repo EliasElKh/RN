@@ -15,6 +15,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { moderateScale } from '../../utils/scalingUtils';
 import crashlytics from '@react-native-firebase/crashlytics';
 // import MapView, { Marker } from 'react-native-maps';
+import { API_URL } from '@env';
 
 type ProductDetailRouteProp = RouteProp<{ ProductDetail: { id: string } }, 'ProductDetail'>;
 
@@ -55,7 +56,7 @@ const fetchUserProfile = React.useCallback(async (userId: string) => {
 
   while (retries < maxRetries) {
     try {
-      const res = await fetch(`https://backend-practice.eurisko.me/api/user/profile/${userId}`, {
+      const res = await fetch(`${API_URL}/api/user/profile/${userId}`, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${accessToken}`,
@@ -76,7 +77,7 @@ const fetchUserProfile = React.useCallback(async (userId: string) => {
       }
     } catch (err) {
       retries++;
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise<void>(resolve => setTimeout(() => resolve(), 1000));
     } finally {
       if (retries === maxRetries || userProfile) {
         setUserLoading(false);
@@ -105,7 +106,7 @@ const handleShare = async () => {
 
       while (retries < maxRetries) {
         try {
-          const res = await fetch(`https://backend-practice.eurisko.me/api/products/${id}`, {
+          const res = await fetch(`${API_URL}/api/products/${id}`, {
             headers: {
               'Content-Type': 'application/json',
               Authorization: `Bearer ${accessToken}`,
@@ -179,7 +180,7 @@ const handleShare = async () => {
   </Swiper> */}
   <Swiper style={ styles.swiper } showsPagination loop>
     {product.data.images.map((img: { url: string }, idx: number) => {
-      const imageUrl = `https://backend-practice.eurisko.me${img.url}`;
+      const imageUrl = `${API_URL}${img.url}`;
       return (
         <TouchableOpacity
           key={idx}
@@ -243,7 +244,7 @@ const handleShare = async () => {
         </Text>
         {userProfile.profileImage?.url && (
           <CardImage
-            uri={`https://backend-practice.eurisko.me${userProfile.profileImage.url}`}
+            uri={`${API_URL}${userProfile.profileImage.url}`}
             style={styles.cardImage}
           />
         )}

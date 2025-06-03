@@ -7,6 +7,7 @@ import { ProductListProps } from './ProductList.types';
 import { styles } from './ProductList.styles';
 import ProductSkeleton from './ProductSkeleton';
 import crashlytics from '@react-native-firebase/crashlytics';
+import { API_URL } from '@env';
 
 
 
@@ -17,7 +18,7 @@ const fetchWithRetry = async (url: string, options: AxiosRequestConfig<any> | un
       return await axios.get(url, options);
     } catch (error) {
       if (attempt === maxRetries) { throw error; }
-      await new Promise((res) => setTimeout(res, delayMs));
+      await new Promise((res) => setTimeout(() => res(undefined), delayMs));
     }
   }
 };
@@ -57,8 +58,8 @@ export const ProductList: React.FC<ProductListProps> = ({ searchQuery, sortOrder
         }
 
         const baseUrl = isSearch
-          ? 'https://backend-practice.eurisko.me/api/products/search'
-          : 'https://backend-practice.eurisko.me/api/products';
+          ? `${API_URL}/api/products/search`
+          : `${API_URL}/api/products`;
 
         const params = isSearch
           ? { query: debouncedSearchQuery }

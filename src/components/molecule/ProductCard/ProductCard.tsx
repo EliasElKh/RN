@@ -15,6 +15,7 @@ import { useRef } from 'react';
 import { useCart } from '../../../context/CartContext/CartContext';
 import { Share } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import { API_URL } from '@env';
 
 export const ProductCard: React.FC<ProductCardProps> = ({ item,userId,onDeleteSuccess }) => {
     const navigation = useNavigation<any>();
@@ -45,7 +46,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item,userId,onDeleteSu
             if (isDeleting) {return;}
             setIsDeleting(true);
             try {
-              const response = await fetch(`https://backend-practice.eurisko.me/api/products/${item._id}`, {
+              const response = await fetch(`${API_URL}/api/products/${item._id}`, {
                 method: 'DELETE',
                 headers: {
                   'Content-Type': 'application/json',
@@ -105,7 +106,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item,userId,onDeleteSu
             </Swiper> */}
             <Swiper style={ styles.swiper } showsPagination loop>
   {item.images.map((img: { url: string }, idx: number) => {
-    const imageUrl = `https://backend-practice.eurisko.me${img.url}`;
+    const imageUrl = `${API_URL}${img.url}`;
     return (
       <TouchableOpacity
         key={idx}
@@ -156,7 +157,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item,userId,onDeleteSu
               <Label text="Delete" />
             )}
           </TouchableOpacity>
-          
         </View>
       )}
     </TouchableOpacity>

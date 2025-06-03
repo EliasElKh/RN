@@ -21,6 +21,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { moderateScale } from '../../utils/scalingUtils';
 import { darkStyles } from '../AddProductScreen/AddProductScreen.styles';
 import crashlytics from '@react-native-firebase/crashlytics';
+import { API_URL } from '@env';
 
 
 export const EditProductScreen: React.FC = () => {
@@ -85,7 +86,7 @@ const handleSubmit = async () => {
 
   while (attempts < maxRetries && !success) {
     try {
-      const res = await fetch(`https://backend-practice.eurisko.me/api/products/${product._id}`, {
+      const res = await fetch(`${API_URL}/api/products/${product._id}`, {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${accessToken}`,

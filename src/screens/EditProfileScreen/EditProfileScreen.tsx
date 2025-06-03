@@ -19,6 +19,7 @@ import { requestCameraPermission, requestStoragePermission } from '../../utils/p
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useNavigation } from '@react-navigation/native';
 import crashlytics from '@react-native-firebase/crashlytics';
+import { API_URL } from '@env';
 
 
 export const EditProfileScreen = () => {
@@ -40,7 +41,7 @@ export const EditProfileScreen = () => {
 
   const fetchProfile = async (token: string) => {
     try {
-      const response = await axios.get('https://backend-practice.eurisko.me/api/user/profile', {
+      const response = await axios.get(`${API_URL}/api/user/profile`, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
@@ -80,7 +81,7 @@ export const EditProfileScreen = () => {
     setFirstName(user.firstName || '');
     setLastName(user.lastName || '');
     const fullImageUrl = user.profileImage?.url
-      ? `https://backend-practice.eurisko.me${user.profileImage.url}`
+      ? `${API_URL}${user.profileImage.url}`
       : null;
     setImageUri(fullImageUrl);
     setError(null);
@@ -180,7 +181,7 @@ const handleImageSelection = (response: any) => {
     }
 
     const response = await axios.put(
-      'https://backend-practice.eurisko.me/api/user/profile',
+      `${API_URL}/api/user/profile`,
       formData,
       {
         headers: {
