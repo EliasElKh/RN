@@ -11,7 +11,7 @@ jest.mock('react-native-encrypted-storage', () => ({
   removeItem: jest.fn(() => Promise.resolve()),
 }));
 
-// A real consumer component that renders UI
+
 const TestScreen = () => {
   const {
     isLoggedIn,
@@ -64,7 +64,7 @@ describe('AuthProvider', () => {
       </AuthProvider>
     );
 
-    // Simulate pressing "login" button
+
     await act(async () => {
       fireEvent.press(getByTestId('login-btn'));
     });
@@ -91,12 +91,12 @@ describe('AuthProvider', () => {
       </AuthProvider>
     );
 
-    // Login first
+
     await act(async () => {
       fireEvent.press(getByTestId('login-btn'));
     });
 
-    // Logout
+
     await act(async () => {
       fireEvent.press(getByTestId('logout-btn'));
     });

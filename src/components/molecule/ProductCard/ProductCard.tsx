@@ -94,16 +94,6 @@ export const ProductCard: React.FC<ProductCardProps> = ({ item,userId,onDeleteSu
 
      return (
     <TouchableOpacity style={styles.card} onPress={handlePress}>
-      {/* <Swiper style={ styles.swiper } showsPagination loop>
-              {item.images.map((img: { url: string }, idx: number) => {
-                const imageUrl = `https://backend-practice.eurisko.me${img.url}`;
-                return (
-                  <TouchableOpacity key={idx} onLongPress={() => handleLongPress(imageUrl)}>
-                    <CardImage uri={imageUrl} />
-                  </TouchableOpacity>
-                );
-              })}
-            </Swiper> */}
             <Swiper style={ styles.swiper } showsPagination loop>
   {item.images.map((img: { url: string }, idx: number) => {
     const imageUrl = `${API_URL}${img.url}`;

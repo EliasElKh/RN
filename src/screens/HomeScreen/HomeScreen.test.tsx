@@ -39,7 +39,7 @@ jest.mock('../../components/organism/ProductList/ProductList', () => ({
 
 jest.mock('react-native-vector-icons/MaterialIcons', () => 'Icon');
 
-// Setup
+
 const mockLogout = jest.fn();
 const mockToggleTheme = jest.fn();
 const mockNavigate = jest.fn();
@@ -72,7 +72,7 @@ afterEach(() => {
   jest.clearAllMocks();
 });
 
-// Tests
+
 describe('HomeScreen', () => {
   it('renders all UI elements', async () => {
     const { getByPlaceholderText, getByText} = render(<HomeScreen />);

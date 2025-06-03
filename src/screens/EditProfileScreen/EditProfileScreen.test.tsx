@@ -1,9 +1,9 @@
-// src/screens/EditProfileScreen/EditProfileScreen.test.tsx
+
 import React from 'react';
 import { render } from '@testing-library/react-native';
 import { EditProfileScreen } from './EditProfileScreen';
 
-// Mocks
+
 jest.mock('../../context/ThemeContext/ThemeContext', () => ({
   useTheme: () => ({ theme: 'light' }),
 }));
@@ -24,7 +24,7 @@ jest.mock('../../utils/permissions', () => ({
   requestStoragePermission: jest.fn(() => Promise.resolve(true)),
 }));
 
-// Minimal mock for LabeledInput and Button (no out-of-scope var)
+
 jest.mock('../../components/molecule/LabeledInput', () => {
   const { Text } = require('react-native');
   return {
@@ -47,8 +47,8 @@ describe('EditProfileScreen', () => {
   it('shows loading spinner initially', () => {
     (axios.get as jest.Mock).mockImplementation(() => new Promise(() => {}));
     const { getByTestId } = render(<EditProfileScreen />);
-    // Add testID to ActivityIndicator in your component for this to work!
-    // <ActivityIndicator testID="loading-spinner" ... />
+
+
     expect(getByTestId('loading-spinner')).toBeTruthy();
   });
 
@@ -60,7 +60,7 @@ describe('EditProfileScreen', () => {
       },
     });
     const { findByText } = render(<EditProfileScreen />);
-    // expect(await findByText('Edit Profile')).toBeTruthy();
+
     expect(await findByText('Ali')).toBeTruthy();
     expect(await findByText('Ahmad')).toBeTruthy();
   });

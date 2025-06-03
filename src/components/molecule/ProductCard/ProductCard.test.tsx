@@ -29,9 +29,9 @@ jest.mock('react-native/Libraries/Alert/Alert', () => ({
   alert: jest.fn(),
 }));
 
-// jest.mock('react-native-share', () => ({
-//   share: jest.fn(),
-// }));
+
+
+
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 import { ProductCard } from './ProductCard';
@@ -58,7 +58,7 @@ describe('ProductCard', () => {
 
   it('calls addToCart when "Add to Cart" button is pressed', () => {
         jest.mock('../../../context/CartContext/CartContext', () => {
-    const mockAddToCart = jest.fn(); // ✅ Inside
+    const mockAddToCart = jest.fn();
 
     return {
         useCart: () => ({
@@ -73,6 +73,6 @@ describe('ProductCard', () => {
     );
 
     fireEvent.press(getByText('Add to Cart'));
-    // expect(addToCartMock).toHaveBeenCalledWith(mockItem);
+
   });
 });

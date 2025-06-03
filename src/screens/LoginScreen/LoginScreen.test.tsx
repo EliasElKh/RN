@@ -1,4 +1,4 @@
-// import React from 'react';
+
 import { render, fireEvent, waitFor } from '@testing-library/react-native';
 import { Alert } from 'react-native';
 import { LoginScreen } from './LoginScreen';
@@ -6,16 +6,16 @@ import { useAuth } from '../../context/AuthContext';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../../context/ThemeContext/ThemeContext';
 
-// Mock hooks and components
+
 jest.mock('../../context/AuthContext');
 jest.mock('@react-navigation/native');
 jest.mock('../../context/ThemeContext/ThemeContext');
-// At the top of your test file
-
-// Then mock with those imported explicitly inside the factory function scope:
 
 
-// Mock LoginForm properly with React Native components imported here:
+
+
+
+
 jest.mock('../../components/organism/LoginForm', () => {
   const React = require('react');
   const { Text, TouchableOpacity } = require('react-native');
@@ -76,12 +76,12 @@ describe('LoginScreen', () => {
 
     fireEvent.press(getByTestId('login-button'));
 
-    // isLoading becomes true during login
+
     expect(getByTestId('loading-text').props.children).toBe('Loading');
 
     await waitFor(() => {
       expect(mockedLogin).toHaveBeenCalledWith('test@example.com', 'password');
-      // isLoading should go back to false (empty string)
+
       expect(getByTestId('loading-text').props.children).toBe('');
     });
   });
@@ -99,7 +99,7 @@ describe('LoginScreen', () => {
 
   describe('forgot password', () => {
     beforeEach(() => {
-      global.fetch = jest.fn();
+      globalThis.fetch = jest.fn();
     });
 
     afterEach(() => {
@@ -107,7 +107,7 @@ describe('LoginScreen', () => {
     });
 
     it('calls fetch and shows success alert', async () => {
-      (global.fetch as jest.Mock).mockResolvedValueOnce({
+      (globalThis.fetch as jest.Mock).mockResolvedValueOnce({
         json: async () => ({
           success: true,
           data: { message: 'Reset email sent' },
@@ -130,7 +130,7 @@ describe('LoginScreen', () => {
     });
 
     it('shows error alert on failed fetch response', async () => {
-      (global.fetch as jest.Mock).mockResolvedValueOnce({
+      (globalThis.fetch as jest.Mock).mockResolvedValueOnce({
         json: async () => ({
           success: false,
           message: 'Email not found',
@@ -147,7 +147,7 @@ describe('LoginScreen', () => {
     });
 
     it('retries fetch and shows failure alert after 3 failed attempts', async () => {
-      (global.fetch as jest.Mock).mockRejectedValue(new Error('Network error'));
+      (globalThis.fetch as jest.Mock).mockRejectedValue(new Error('Network error'));
 
       const { getByTestId } = render(<LoginScreen />);
 

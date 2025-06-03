@@ -1,9 +1,9 @@
 import React from 'react';
 import { render, act, fireEvent } from '@testing-library/react-native';
-import { CartProvider, useCart } from './CartContext'; // adjust path if needed
+import { CartProvider, useCart } from './CartContext';
 import { Text, Button } from 'react-native';
 beforeAll(() => {
-  Object.defineProperty(global, 'localStorage', {
+  Object.defineProperty(globalThis, 'localStorage', {
     value: {
       getItem: jest.fn(() => null),
       setItem: jest.fn(),
@@ -16,7 +16,7 @@ beforeAll(() => {
 
 const sampleProduct = { _id: '1', name: 'Test Product' };
 
-// A test consumer to interact with the cart
+
 const CartTestComponent = () => {
   const { cart, addToCart, removeFromCart, increment, decrement, clearCart } = useCart();
   return (
@@ -48,11 +48,11 @@ describe('CartProvider', () => {
         <CartTestComponent />
       </CartProvider>
     );
-    // Add to cart
+
     act(() => { fireEvent.press(getByText('add')); });
     expect(getByTestId('cart-count').children[0]).toBe('1');
     expect(getByTestId('cart-qty').children[0]).toBe('1');
-    // Increment
+
     act(() => { fireEvent.press(getByText('inc')); });
     expect(getByTestId('cart-qty').children[0]).toBe('2');
   });
@@ -63,14 +63,14 @@ describe('CartProvider', () => {
         <CartTestComponent />
       </CartProvider>
     );
-    // Add to cart and increment
+
     act(() => { fireEvent.press(getByText('add')); });
     act(() => { fireEvent.press(getByText('inc')); });
     expect(getByTestId('cart-qty').children[0]).toBe('2');
-    // Decrement
+
     act(() => { fireEvent.press(getByText('dec')); });
     expect(getByTestId('cart-qty').children[0]).toBe('1');
-    // Decrement again (should stay at 1)
+
     act(() => { fireEvent.press(getByText('dec')); });
     expect(getByTestId('cart-qty').children[0]).toBe('1');
   });
@@ -95,7 +95,7 @@ describe('CartProvider', () => {
     );
     act(() => { fireEvent.press(getByText('add')); });
     act(() => { fireEvent.press(getByText('add')); });
-    expect(getByTestId('cart-count').children[0]).toBe('1'); // Only one unique product
+    expect(getByTestId('cart-count').children[0]).toBe('1');
     act(() => { fireEvent.press(getByText('clear')); });
     expect(getByTestId('cart-count').children[0]).toBe('0');
   });
