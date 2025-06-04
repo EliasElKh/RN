@@ -29,7 +29,10 @@ COPY . .
 # Decode the keystore from environment variable (handled by GitHub Actions mount)
 RUN echo "$KEYSTORE_BASE64" | base64 -d > android/app/my-release-key.keystore
 
-# Build signed APK
+# Give execute permission to gradlew
+RUN chmod +x android/gradlew
+
+# build and copy the APK
 RUN cd android && ./gradlew assembleRelease && \
     echo "✅ APK built!" && \
     cp app/build/outputs/apk/release/app-release.apk /output/app-release.apk && \
