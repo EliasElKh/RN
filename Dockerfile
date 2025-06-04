@@ -20,14 +20,20 @@ RUN mkdir -p $ANDROID_SDK_ROOT/cmdline-tools && \
 RUN yes | sdkmanager --licenses && \
     sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
 
+# Optional: Cache Gradle in Docker (improves speed)
+ENV GRADLE_USER_HOME=/gradle-cache
+
+
+ENV GRADLE_OPTS=-Xmx4g
+
 WORKDIR /app
 COPY . .
 
+# Install node modules
 RUN npm install
+
 # Make gradlew executable
 RUN chmod +x android/gradlew
 
-ENV GRADLE_OPTS="-Xmx2048m -Dorg.gradle.jvmargs='-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8'"
- 
-# Build debug APK
+# ✅ Build debug APK
 RUN cd android && ./gradlew assembleDebug
