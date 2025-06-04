@@ -16,26 +16,15 @@ RUN mkdir -p $ANDROID_SDK_ROOT/cmdline-tools && \
     rm tools.zip && \
     mv cmdline-tools $ANDROID_SDK_ROOT/cmdline-tools/latest
 
-# Accept Android licenses and install necessary SDK components
+# Accept licenses and install build tools
 RUN yes | sdkmanager --licenses && \
     sdkmanager "platform-tools" "platforms;android-34" "build-tools;34.0.0"
 
-# Set working directory
 WORKDIR /app
-
-# Copy the entire app into the container
 COPY . .
 
-# Decode the keystore from environment variable (handled by GitHub Actions mount)
-RUN echo "$KEYSTORE_BASE64" | base64 -d > android/app/my-release-key.keystore
-
-# Give execute permission to gradlew
+# Make gradlew executable
 RUN chmod +x android/gradlew
 
-# build and copy the APK
-RUN cd android && ./gradlew assembleRelease && \
-    echo "✅ APK built!" && \
-    echo "🔍 Listing build directory..." && \
-    ls -lh app/build/outputs/apk/release && \
-    cp app/build/outputs/apk/release/app-release.apk /output/app-release.apk && \
-    echo "📦 Copied APK to /output:" && ls -lh /output
+# Build debug APK
+RUN cd android && ./gradlew assembleDebug
