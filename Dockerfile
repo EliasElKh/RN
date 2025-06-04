@@ -23,6 +23,8 @@ RUN yes | sdkmanager --licenses && \
 WORKDIR /app
 COPY . .
 
+RUN npm install
+
 # Make gradlew executable
 RUN chmod +x android/gradlew
 
