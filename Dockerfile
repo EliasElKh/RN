@@ -30,4 +30,5 @@ COPY . .
 RUN echo "$KEYSTORE_BASE64" | base64 -d > android/app/my-release-key.keystore
 
 # Build signed APK
-RUN cd android && ./gradlew assembleRelease
+RUN cd android && ./gradlew assembleRelease && \
+    cp app/build/outputs/apk/release/app-release.apk /output/app-release.apk
