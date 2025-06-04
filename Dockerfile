@@ -37,3 +37,6 @@ RUN chmod +x android/gradlew
 
 # ✅ Build debug APK
 RUN cd android && ./gradlew assembleDebug
+
+# Copy the built debug APK to /output so we can extract it later
+RUN mkdir -p /output && cp android/app/build/outputs/apk/debug/app-debug.apk /output/
