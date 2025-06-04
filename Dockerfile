@@ -6,8 +6,8 @@ RUN apt-get update && apt-get install -y \
   && apt-get clean
 
 # Set environment variables
-ENV ANDROID_SDK_ROOT /opt/android-sdk
-ENV PATH $PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/platform-tools
+ENV ANDROID_SDK_ROOT=/opt/android-sdk
+ENV PATH=$PATH:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/platform-tools
 
 # Download and setup Android SDK command line tools
 RUN mkdir -p $ANDROID_SDK_ROOT/cmdline-tools && \
@@ -35,5 +35,5 @@ RUN chmod +x android/gradlew
 # build and copy the APK
 RUN cd android && ./gradlew assembleRelease && \
     echo "✅ APK built!" && \
-    cp app/build/outputs/apk/release/app-release.apk /output/app-release.apk && \
+    cp android/app/build/outputs/apk/release/app-release.apk /output/app-release.apk && \
     echo "📦 Copied APK to /output:" && ls -lh /output
