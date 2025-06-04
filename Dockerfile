@@ -24,7 +24,7 @@ RUN yes | sdkmanager --licenses && \
 ENV GRADLE_USER_HOME=/gradle-cache
 
 
-ENV GRADLE_OPTS=-Xmx4g
+ENV GRADLE_OPTS=-Dorg.gradle.jvmargs=-Xmx4g
 
 WORKDIR /app
 COPY . .
