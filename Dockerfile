@@ -24,11 +24,10 @@ WORKDIR /app
 COPY . .
 
 RUN npm install
-
 # Make gradlew executable
 RUN chmod +x android/gradlew
 
 ENV GRADLE_OPTS="-Xmx2048m -Dorg.gradle.jvmargs='-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8'"
-
+ 
 # Build debug APK
 RUN cd android && ./gradlew assembleDebug
