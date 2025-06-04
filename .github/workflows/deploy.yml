@@ -1,0 +1,55 @@
+name: Android Build CI (Signed APK)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run ESLint
+        run: npx eslint .
+
+      - name: Run Unit Tests
+        run: npm test
+
+      - name: Decode keystore from secret
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > android/app/my-release-key.keystore
+
+      - name: Build signed APK using Docker
+        run: |
+          docker build \
+            --build-arg KEYSTORE_BASE64="${{ secrets.KEYSTORE_BASE64 }}" \
+            --build-arg KEYSTORE_PASSWORD="${{ secrets.KEYSTORE_PASSWORD }}" \
+            --build-arg KEY_ALIAS="${{ secrets.KEY_ALIAS }}" \
+            --build-arg KEY_PASSWORD="${{ secrets.KEY_PASSWORD }}" \
+            -t rn-apk-builder .
+
+          docker run --rm \
+            -e KEYSTORE_BASE64="${{ secrets.KEYSTORE_BASE64 }}" \
+            -e KEYSTORE_PASSWORD="${{ secrets.KEYSTORE_PASSWORD }}" \
+            -e KEY_ALIAS="${{ secrets.KEY_ALIAS }}" \
+            -e KEY_PASSWORD="${{ secrets.KEY_PASSWORD }}" \
+            -v ${{ github.workspace }}/android/app/build/outputs/apk/release:/output \
+            rn-apk-builder
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-release.apk
+          path: android/app/build/outputs/apk/release/app-release.apk
