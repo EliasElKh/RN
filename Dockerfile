@@ -35,5 +35,7 @@ RUN chmod +x android/gradlew
 # build and copy the APK
 RUN cd android && ./gradlew assembleRelease && \
     echo "✅ APK built!" && \
-    cp android/app/build/outputs/apk/release/app-release.apk /output/app-release.apk && \
+    echo "🔍 Listing build directory..." && \
+    ls -lh app/build/outputs/apk/release && \
+    cp app/build/outputs/apk/release/app-release.apk /output/app-release.apk && \
     echo "📦 Copied APK to /output:" && ls -lh /output
